@@ -54,10 +54,37 @@
                     <td>Otto</td>
                     <td>Otto</td>
                     <td>
-                        <object class="onIcon px-1" data="./assets/icons/edit.svg" type="image/svg+xml"></object>
-                        <object class="onIcon px-1" data="./assets/icons/archive.svg" type="image/svg+xml"></object>
-                        <object class="onIcon px-1" data="./assets/icons/delete.svg" type="image/svg+xml"></object>
+                        <img class="onIcon px-1" src="./assets/icons/edit.svg" alt="edit row" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit your row">
+                        <img class="onIcon px-1" src="./assets/icons/archive.svg" alt="archive row" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Archive your row">
+                        <img class="onIcon px-1" src="./assets/icons/delete.svg" alt="delete row" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete your row">
                     </td>
+                </tr>
+                  <tr class="table-add-row active">
+                      <form action="#">
+                          <th scope="row">
+                            <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="false">
+                          </th>
+                          <td>
+                            <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                          </td>
+                          <td>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open category</option>
+                                <option value="1">Task</option>
+                                <option value="2">Random Thought</option>
+                                <option value="3">Idea</option>
+                              </select>
+                          </td>
+                          <td>
+                              <input type="text" class="form-control" placeholder="Task explination" aria-label="Username" aria-describedby="basic-addon1">
+                            </td>
+                            <td>
+                              <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                            </td>
+                          <td>
+                            <button type="button" class="btn btn-success">Save</button>
+                          </td>
+                      </form>
                 </tr>
             </table>
                 <div class="addition d-flex justify-content-end">
@@ -89,7 +116,7 @@
                             <td>Otto</td>
                             <td>Otto</td>
                             <td>Otto</td>
-                            <td></td>
+                            <td><img class="onIcon px-1" src="./assets/icons/unarchive.svg" alt="unarchive row" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unarchive your row"></td>
                         </tr>
                         <tr>
                             <th scope="row">Task</th>
