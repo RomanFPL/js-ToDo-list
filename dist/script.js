@@ -8288,6 +8288,7 @@ addRowBtn.addEventListener("click", () => {
 const generateContent = () => {
   const fillRowUp = item => {
     const row = document.createElement("tr");
+    row.setAttribute("data-id", item.id);
     row.innerHTML = `
         <th scope="row">${item.name}</th>
         <td>${item.date}</td>
@@ -8308,7 +8309,7 @@ const generateContent = () => {
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
             </svg>
             ` : `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-square onIcon mx-1 orange" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-unarchive bi bi-arrow-up-square onIcon mx-1 orange" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
             </svg>
             `}
@@ -8317,11 +8318,24 @@ const generateContent = () => {
     return row;
   };
 
+  contentTableCurent.innerHTML = "";
+  contentTableArchive.innerHTML = "";
   _modules_starterDate__WEBPACK_IMPORTED_MODULE_1__["default"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
   _modules_starterDate__WEBPACK_IMPORTED_MODULE_1__["default"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
 };
 
+try {
+  contentTableArchive.addEventListener("click", e => {
+    console.log(e.target.classList.contains("icon-unarchive"));
+    console.log(e.target.closest("tr").getAttribute("data-id"));
+    console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_1__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_1__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
+    generateContent();
+  });
+} catch (_unused) {}
+
 generateContent();
+let r = (Math.random() + 1).toString(36).substring(4);
+console.log("random", r);
 
 /***/ }),
 
@@ -8337,6 +8351,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const tasksList = [{
+  id: "rmsd7skah",
   name: "Pet the cat",
   date: "10/01/2021",
   category: "Random Thought",
@@ -8344,6 +8359,7 @@ const tasksList = [{
   dates: "",
   status: 1
 }, {
+  id: "dn9jrtz7",
   name: "Feed ducks",
   date: "10/05/2021",
   category: "Random Thought",
@@ -8351,6 +8367,7 @@ const tasksList = [{
   dates: "",
   status: 1
 }, {
+  id: "1caw9hq9i",
   name: "Pick raspberry",
   date: "10/08/2021",
   category: "Task",
@@ -8358,6 +8375,7 @@ const tasksList = [{
   dates: "",
   status: 1
 }, {
+  id: "5fhvgj61f",
   name: "Build the house",
   date: "10/09/2021",
   category: "Task",
@@ -8365,6 +8383,7 @@ const tasksList = [{
   dates: "10/10/2021",
   status: 1
 }, {
+  id: "mxof3uoni",
   name: "Visit a doctor",
   date: "06/08/2021",
   category: "Task",
@@ -8372,6 +8391,7 @@ const tasksList = [{
   dates: "",
   status: 0
 }, {
+  id: "699161at",
   name: "Kick naughty dog",
   date: "05/08/2021",
   category: "Random Thought",

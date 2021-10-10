@@ -2,6 +2,7 @@
 
 const tasksList = [
     {
+        id: "rmsd7skah",
         name: "Pet the cat",
         date: "10/01/2021",
         category: "Random Thought",
@@ -10,6 +11,7 @@ const tasksList = [
         status: 1,
     },
     {
+        id: "dn9jrtz7",
         name: "Feed ducks",
         date: "10/05/2021",
         category: "Random Thought",
@@ -18,6 +20,7 @@ const tasksList = [
         status: 1,
     },
     {
+        id: "1caw9hq9i",
         name: "Pick raspberry",
         date: "10/08/2021",
         category: "Task",
@@ -26,6 +29,7 @@ const tasksList = [
         status: 1,
     },
     {
+        id: "5fhvgj61f",
         name: "Build the house",
         date: "10/09/2021",
         category: "Task",
@@ -34,6 +38,7 @@ const tasksList = [
         status: 1,
     },
     {
+        id: "mxof3uoni",
         name: "Visit a doctor",
         date: "06/08/2021",
         category: "Task",
@@ -42,6 +47,7 @@ const tasksList = [
         status: 0,
     },
     {
+        id: "699161at",
         name: "Kick naughty dog",
         date: "05/08/2021",
         category: "Random Thought",
