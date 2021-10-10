@@ -4,10 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Test blank</title>
+    <title>To Do</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon//apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon//apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon//apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/favicon//apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/favicon//apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/favicon//apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/favicon//apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon//apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/favicon//android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon//favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon//favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon//favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon//manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="assets/css/style.min.css">
     <script defer src="script.js"></script>
 </head>
 <body>
+    <section class="main container">
+        <div class="wrap-table mb-5">
+
+            <div class="name-table m-2">
+                <h2 class="text-center">
+                    To do list active
+                </h2>
+            </div>
+
+            <table class="table table-light table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Created!</th>
+                      <th scope="col">Category!</th>
+                      <th scope="col">Content!</th>
+                      <th scope="col">Dates</th>
+                      <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Task</th>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td>Otto</td>
+                    <td>
+                        <object class="onIcon px-1" data="./assets/icons/edit.svg" type="image/svg+xml"></object>
+                        <object class="onIcon px-1" data="./assets/icons/archive.svg" type="image/svg+xml"></object>
+                        <object class="onIcon px-1" data="./assets/icons/delete.svg" type="image/svg+xml"></object>
+                    </td>
+                </tr>
+            </table>
+                <div class="addition d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary">Add a row</button>
+                </div>
+
+
+            </div>
+            <div class="wrap-table">
+                <div class="name-table m-2">
+                    <h2 class="text-center">
+                        Archived
+                    </h2>
+                    <table class="table table-light table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created!</th>
+                            <th scope="col">Category!</th>
+                            <th scope="col">Content!</th>
+                            <th scope="col">Dates</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">Task</th>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Task</th>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                            <td>Otto</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    </section>
 </body>
 </html>

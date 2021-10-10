@@ -1,4 +1,4 @@
-# JS ToDo list
+# 📝 JS ToDo list
 
 This mini project was prepared as an interview task;
 
