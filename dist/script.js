@@ -8274,6 +8274,7 @@ switchArchive.addEventListener("click", e => {
   contentTableArchive.classList.toggle('tbody-hidden');
   contentTableCurent.classList.toggle('tbody-hidden');
   switchArchive.classList.toggle('active');
+  addRowBtn.classList.toggle("unvisible");
   console.log("### tbales");
 });
 addRowBtn.addEventListener("click", () => {

@@ -28,6 +28,20 @@ gulp.task('styles', function () {
     .pipe(browsersync.stream());
 });
 
+gulp.task('server', function() {
+  browsersync.create().init({
+      server: {
+          baseDir: "dist"
+      },
+      online: true,
+      tunnel: true,
+      logLevel: "debug",
+      port: 4000
+  });
+
+  gulp.watch("src/*.html").on('change', browsersync.reload);
+});
+
 
 gulp.task("build-js", () => {
     return gulp.src("./src/js/main.js")
@@ -69,17 +83,6 @@ gulp.task("copy-assets", () => {
 
 
 gulp.task("watch", () => {
-    browsersync.init({
-        server: {
-            baseDir: "./dist/",
-            serveStaticOptions: {
-                extensions: ["html"]
-            }
-        },
-		port: 4000,
-		notify: true
-    });
-    
     gulp.watch("./src/*.html", gulp.parallel("copy-html"));
     gulp.watch("./src/assets/**/*.*", gulp.parallel("copy-assets"));
     gulp.watch("./src/assets/sass/**/*.*", gulp.parallel("copy-assets","styles"));
@@ -116,4 +119,4 @@ gulp.task("build-prod-js", () => {
                 .pipe(gulp.dest(dist));
 });
 
-gulp.task("default", gulp.parallel("watch", "build"));
+gulp.task("default", gulp.parallel("watch", "build", "server"));
