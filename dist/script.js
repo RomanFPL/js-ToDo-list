@@ -10050,8 +10050,7 @@ xClose.addEventListener("click", () => {
   rowForm.reset();
 });
 addRowBtn.addEventListener("click", () => {
-  const date = new Date();
-  modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
+  modalInputs[1].value = Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["gatCurenDate"])();
 });
 contentTableArchive.addEventListener("click", e => {
   _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
@@ -10131,7 +10130,7 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable */
+/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable, gatCurenDate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10140,11 +10139,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegExpValue", function() { return getRegExpValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateContent", function() { return generateContent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSummaryTable", function() { return generateSummaryTable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gatCurenDate", function() { return gatCurenDate; });
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 
 
 
+
+const gatCurenDate = () => {
+  const date = new Date();
+  const month = date.getMonth() + 1;
+  return `${date.getFullYear()}-${month < 10 ? "0" + month : month}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
+};
 
 const togleElemClassAsArr = (arrElem, arrCssClass) => {
   arrElem.forEach((x, y) => x.classList.toggle(arrCssClass[y]));

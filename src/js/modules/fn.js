@@ -1,5 +1,11 @@
 "use strict"
 
+const gatCurenDate = () => {
+    const date = new Date();
+    const month = date.getMonth()+1;
+    return `${date.getFullYear()}-${month<10 ? "0"+month : month}-${date.getDate()<10 ? "0"+date.getDate() : date.getDate()}`;
+}
+
 const togleElemClassAsArr = (arrElem, arrCssClass) => {
     arrElem.forEach((x,y) => x.classList.toggle(arrCssClass[y]));
 } 
@@ -84,6 +90,7 @@ export {
     togleElemClassAsArr,
     getRegExpValue,
     generateContent,
-    generateSummaryTable
+    generateSummaryTable,
+    gatCurenDate
 }
 

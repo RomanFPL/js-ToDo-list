@@ -1,6 +1,6 @@
 "use strict";
 import 'bootstrap';
-import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable } from './modules/fn';
+import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable, gatCurenDate } from './modules/fn';
 import {tasksList, definedCategories } from './modules/starterDate';
 
 
@@ -46,12 +46,10 @@ btnClose.addEventListener("click", () => {
 xClose.addEventListener("click", () => {
     rowForm.setAttribute("data-id", "0");
     rowForm.reset();
-})
-
+});
 
 addRowBtn.addEventListener("click", () => {
-    const date = new Date();
-    modalInputs[1].value=`${date.getFullYear()}-${date.getMonth()<10 ? "0"+date.getMonth() : date.getMonth()}-${date.getDate()<10 ? "0"+date.getDate() : date.getDate()}`
+    modalInputs[1].value  =gatCurenDate();
 })
 
 contentTableArchive.addEventListener("click", (e) => {
