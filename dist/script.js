@@ -10025,9 +10025,13 @@ const contentTableCurent = document.querySelector(".note-table-main");
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
 const sumTable = document.querySelector(".summary-table tbody");
-const modalAdd = document.querySelector('.modal-add');
+const rowForm = document.querySelector(".modal-form");
+const modalInputs = document.querySelectorAll('.form-row-value');
+const btnSave = document.querySelector(".btn-form-save");
+const btnClose = document.querySelector(".btn-form-close");
 const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
 const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
+const definedCategories = ["Task", "Random Thought", "Idea"];
 switchArchive.addEventListener("click", e => {
   Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["toogleElemClassAsArr"])(togleElem, toggleClass);
 });
@@ -10089,8 +10093,6 @@ contentTableCurent.addEventListener("click", e => {
   generateSummary();
 });
 generateContent();
-let r = (Math.random() + 1).toString(36).substring(4);
-console.log("random", r);
 
 const generateSummary = () => {
   const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => row.category))].map(unique => {
@@ -10121,6 +10123,36 @@ const generateSummary = () => {
 };
 
 generateSummary();
+const date = new Date();
+modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
+btnSave.addEventListener("click", () => {
+  if (modalInputs[0].value && modalInputs[2].value && modalInputs[3].value) {
+    const rowData = {};
+    rowData.status = 1;
+    rowData.id = (Math.random() + 1).toString(36).substring(4);
+    modalInputs.forEach(x => {
+      rowData[x.name] = x.value;
+    });
+    rowData.category = definedCategories[rowData.category - 1];
+    _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].push(rowData);
+    generateContent();
+    generateSummary();
+    rowForm.reset();
+    btnClose.click();
+  } else {
+    alert('The "Name","Category" and "Content" fields should contain some text!');
+  }
+});
+modalInputs[3].addEventListener("input", e => {
+  const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/gm;
+  modalInputs[4].value = e.target.value.split(" ").reduce((acc, word) => {
+    if (word.match(regex) !== null) {
+      acc.push(word.match(regex));
+    }
+
+    return acc;
+  }, []).join(", ");
+});
 
 /***/ }),
 
