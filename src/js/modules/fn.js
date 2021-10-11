@@ -26,15 +26,31 @@ const generateContent = (tableBody, vlueList, status) => {
     vlueList.map( row  => row.status === status && tableBody.append(fillRowUp(row)));
 }
 
-const editRowById = (event, valueList, modalInputs, rowForm, initOpenBtn) => {
+const editRowById = (event, valueList, modalInputs, categories, rowForm, initOpenBtn) => {
     const {id, name, date, category, content, dates} = valueList[valueList.findIndex(item => item.id === event.target.closest("tr").getAttribute("data-id"))];
     initOpenBtn.click();
     modalInputs[0].value = name;
     modalInputs[1].value = date;
-    modalInputs[2].value = definedCategories.indexOf(category)+1;
+    modalInputs[2].value = categories.indexOf(category)+1;
     modalInputs[3].value = content;
     modalInputs[4].value = dates;
     rowForm.setAttribute("data-id",id)
+}
+
+const saveChanges = (modalInputs, rowForm,categories, valueList) => {
+    const rowData = {};
+    rowData.status = 1;
+    modalInputs.forEach(x => {
+        rowData[x.name] = x.value
+    }) 
+    rowData.category = categories[rowData.category-1];
+    if(rowForm.getAttribute("data-id")==="0"){
+        rowData.id = (Math.random() + 1).toString(36).substring(4);
+        valueList.push(rowData);
+    } else {
+        const index = valueList.findIndex(item => item.id === rowForm.getAttribute("data-id"))
+        valueList[index] = {...valueList[index],...rowData}
+}
 }
 
 const fillRowUp = (item) => {
@@ -103,6 +119,7 @@ export {
     generateContent,
     generateSummaryTable,
     gatCurenDate,
-    editRowById
+    editRowById,
+    saveChanges
 }
 

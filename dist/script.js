@@ -10014,12 +10014,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/starterDate */ "./src/js/modules/starterDate.js");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -10070,26 +10064,12 @@ contentTableCurent.addEventListener("click", e => {
   updateTables();
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-edit") && Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["editRowById"])(e, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], modalInputs, rowForm, addRowBtn);
+  e.target.classList.contains("icon-edit") && Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["editRowById"])(e, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], modalInputs, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"], rowForm, addRowBtn);
   updateTables();
 });
 btnSave.addEventListener("click", () => {
   if (modalInputs[0].value && modalInputs[2].value && modalInputs[3].value) {
-    const rowData = {};
-    rowData.status = 1;
-    modalInputs.forEach(x => {
-      rowData[x.name] = x.value;
-    });
-    rowData.category = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"][rowData.category - 1];
-
-    if (rowForm.getAttribute("data-id") === "0") {
-      rowData.id = (Math.random() + 1).toString(36).substring(4);
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].push(rowData);
-    } else {
-      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index], {}, rowData);
-    }
-
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["saveChanges"])(modalInputs, rowForm, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"], _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
     updateTables();
     rowForm.setAttribute("data-id", "0");
     rowForm.reset();
@@ -10108,7 +10088,7 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable, gatCurenDate, editRowById */
+/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable, gatCurenDate, editRowById, saveChanges */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10119,11 +10099,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSummaryTable", function() { return generateSummaryTable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gatCurenDate", function() { return gatCurenDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editRowById", function() { return editRowById; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveChanges", function() { return saveChanges; });
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 
 
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const gatCurenDate = () => {
   const date = new Date();
@@ -10151,7 +10138,7 @@ const generateContent = (tableBody, vlueList, status) => {
   vlueList.map(row => row.status === status && tableBody.append(fillRowUp(row)));
 };
 
-const editRowById = (event, valueList, modalInputs, rowForm, initOpenBtn) => {
+const editRowById = (event, valueList, modalInputs, categories, rowForm, initOpenBtn) => {
   const {
     id,
     name,
@@ -10163,10 +10150,27 @@ const editRowById = (event, valueList, modalInputs, rowForm, initOpenBtn) => {
   initOpenBtn.click();
   modalInputs[0].value = name;
   modalInputs[1].value = date;
-  modalInputs[2].value = definedCategories.indexOf(category) + 1;
+  modalInputs[2].value = categories.indexOf(category) + 1;
   modalInputs[3].value = content;
   modalInputs[4].value = dates;
   rowForm.setAttribute("data-id", id);
+};
+
+const saveChanges = (modalInputs, rowForm, categories, valueList) => {
+  const rowData = {};
+  rowData.status = 1;
+  modalInputs.forEach(x => {
+    rowData[x.name] = x.value;
+  });
+  rowData.category = categories[rowData.category - 1];
+
+  if (rowForm.getAttribute("data-id") === "0") {
+    rowData.id = (Math.random() + 1).toString(36).substring(4);
+    valueList.push(rowData);
+  } else {
+    const index = valueList.findIndex(item => item.id === rowForm.getAttribute("data-id"));
+    valueList[index] = _objectSpread({}, valueList[index], {}, rowData);
+  }
 };
 
 const fillRowUp = item => {

@@ -1,6 +1,6 @@
 "use strict";
 import 'bootstrap';
-import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable, gatCurenDate, editRowById } from './modules/fn';
+import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable, gatCurenDate, editRowById, saveChanges } from './modules/fn';
 import {tasksList, definedCategories } from './modules/starterDate';
 
 
@@ -73,26 +73,13 @@ contentTableCurent.addEventListener("click", (e) => {
 })
 
 contentTableCurent.addEventListener("click", (e) => {
-    e.target.classList.contains("icon-edit") && (editRowById(e, tasksList, modalInputs, rowForm, addRowBtn));
+    e.target.classList.contains("icon-edit") && (editRowById(e, tasksList, modalInputs, definedCategories, rowForm, addRowBtn));
     updateTables();
 })
 
 btnSave.addEventListener("click", () => {
     if(modalInputs[0].value && modalInputs[2].value && modalInputs[3].value){
-        const rowData = {};
-            rowData.status = 1;
-            modalInputs.forEach(x => {
-                rowData[x.name] = x.value
-            }) 
-            rowData.category = definedCategories[rowData.category-1];
-            if(rowForm.getAttribute("data-id")==="0"){
-                rowData.id = (Math.random() + 1).toString(36).substring(4);
-                tasksList.push(rowData);
-            } else {
-                const index = tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id"))
-                tasksList[index] = {...tasksList[index],...rowData}
-        }
-
+        saveChanges(modalInputs, rowForm, definedCategories, tasksList);
         updateTables();
         rowForm.setAttribute("data-id", "0");
         rowForm.reset();
