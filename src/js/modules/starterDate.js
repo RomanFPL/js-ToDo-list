@@ -4,7 +4,7 @@ const tasksList = [
     {
         id: "rmsd7skah",
         name: "Pet the cat",
-        date: "10/01/2021",
+        date: "2021-10-01",
         category: "Random Thought",
         content: "Find a cat, catch it, pet it",
         dates: "",
@@ -13,7 +13,7 @@ const tasksList = [
     {
         id: "dn9jrtz7",
         name: "Feed ducks",
-        date: "10/05/2021",
+        date: "2021-09-01",
         category: "Random Thought",
         content: "Take some breadcrumbs, find ducks, feed them",
         dates: "",
@@ -22,7 +22,7 @@ const tasksList = [
     {
         id: "1caw9hq9i",
         name: "Pick raspberry",
-        date: "10/08/2021",
+        date: "2021-08-01",
         category: "Task",
         content: "Go to the garden, and pick it",
         dates: "",
@@ -31,7 +31,7 @@ const tasksList = [
     {
         id: "5fhvgj61f",
         name: "Build the house",
-        date: "10/09/2021",
+        date: "2021-07-01",
         category: "Task",
         content: "Call to the builder teem in 10/10/2021",
         dates: "10/10/2021",
@@ -40,7 +40,7 @@ const tasksList = [
     {
         id: "mxof3uoni",
         name: "Visit a doctor",
-        date: "06/08/2021",
+        date: "2021-08-20",
         category: "Task",
         content: "Visit a doctor. The dog was powerfull.",
         dates: "",
@@ -49,7 +49,7 @@ const tasksList = [
     {
         id: "699161at",
         name: "Kick naughty dog",
-        date: "05/08/2021",
+        date: "2021-08-19",
         category: "Random Thought",
         content: "Find and kick it",
         dates: "",

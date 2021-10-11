@@ -35,6 +35,11 @@ switchArchive.addEventListener("click", (e) => {
     toogleElemClassAsArr(togleElem, toggleClass);
 });
 
+addRowBtn.addEventListener("click", () => {
+    const date = new Date();
+    modalInputs[1].value=`${date.getFullYear()}-${date.getMonth()<10 ? "0"+date.getMonth() : date.getMonth()}-${date.getDate()<10 ? "0"+date.getDate() : date.getDate()}`
+})
+
 const generateContent = () => {
     const fillRowUp = (item) => {
         const row = document.createElement("tr");
@@ -75,13 +80,13 @@ const generateContent = () => {
 }
 
 
-    contentTableArchive.addEventListener("click", (e) => {
-        console.log(e.target.classList.contains("icon-unarchive"));
-        console.log(e.target.closest("tr").getAttribute("data-id"));
-        console.log(tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
-        generateContent();
-        generateSummary();
-    })
+contentTableArchive.addEventListener("click", (e) => {
+    console.log(e.target.classList.contains("icon-unarchive"));
+    console.log(e.target.closest("tr").getAttribute("data-id"));
+    console.log(tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
+    generateContent();
+    generateSummary();
+})
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-archive") && (tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
@@ -91,6 +96,21 @@ contentTableCurent.addEventListener("click", (e) => {
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-delete") && (tasksList.splice(tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")),1));
+    generateContent();
+    generateSummary();
+})
+
+contentTableCurent.addEventListener("click", (e) => {
+    if(e.target.classList.contains("icon-edit")){
+        const {id, name, date, category, content, dates} = tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
+        addRowBtn.click();
+        modalInputs[0].value = name;
+        modalInputs[1].value = date;
+        modalInputs[2].value = definedCategories.indexOf(category)+1;
+        modalInputs[3].value = content;
+        modalInputs[4].value = dates;
+        rowForm.setAttribute("data-id",id)
+    }
     generateContent();
     generateSummary();
 })
@@ -122,20 +142,23 @@ const generateSummary = () => {
 
 generateSummary()
 
-const date = new Date();
-modalInputs[1].value=`${date.getFullYear()}-${date.getMonth()<10 ? "0"+date.getMonth() : date.getMonth()}-${date.getDate()<10 ? "0"+date.getDate() : date.getDate()}`
-
 btnSave.addEventListener("click", () => {
     if(modalInputs[0].value && modalInputs[2].value && modalInputs[3].value){
-
         const rowData = {};
             rowData.status = 1;
-            rowData.id = (Math.random() + 1).toString(36).substring(4);
             modalInputs.forEach(x => {
                 rowData[x.name] = x.value
             }) 
             rowData.category = definedCategories[rowData.category-1];
-            tasksList.push(rowData);
+            if(rowForm.getAttribute("data-id")==="0"){
+                rowData.id = (Math.random() + 1).toString(36).substring(4);
+                tasksList.push(rowData);
+        } else {
+            console.log(tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id")))
+            const index = tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id"))
+            tasksList[index] = {...tasksList[index],...rowData}
+        }
+
         generateContent();
         generateSummary();
         rowForm.reset();

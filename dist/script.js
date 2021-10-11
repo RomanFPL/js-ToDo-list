@@ -10018,6 +10018,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 const contentTableArchive = document.querySelector(".note-table-archive");
@@ -10034,6 +10041,10 @@ const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
 const definedCategories = ["Task", "Random Thought", "Idea"];
 switchArchive.addEventListener("click", e => {
   Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["toogleElemClassAsArr"])(togleElem, toggleClass);
+});
+addRowBtn.addEventListener("click", () => {
+  const date = new Date();
+  modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
 });
 
 const generateContent = () => {
@@ -10092,6 +10103,28 @@ contentTableCurent.addEventListener("click", e => {
   generateContent();
   generateSummary();
 });
+contentTableCurent.addEventListener("click", e => {
+  if (e.target.classList.contains("icon-edit")) {
+    const {
+      id,
+      name,
+      date,
+      category,
+      content,
+      dates
+    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
+    addRowBtn.click();
+    modalInputs[0].value = name;
+    modalInputs[1].value = date;
+    modalInputs[2].value = definedCategories.indexOf(category) + 1;
+    modalInputs[3].value = content;
+    modalInputs[4].value = dates;
+    rowForm.setAttribute("data-id", id);
+  }
+
+  generateContent();
+  generateSummary();
+});
 generateContent();
 
 const generateSummary = () => {
@@ -10123,18 +10156,24 @@ const generateSummary = () => {
 };
 
 generateSummary();
-const date = new Date();
-modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
 btnSave.addEventListener("click", () => {
   if (modalInputs[0].value && modalInputs[2].value && modalInputs[3].value) {
     const rowData = {};
     rowData.status = 1;
-    rowData.id = (Math.random() + 1).toString(36).substring(4);
     modalInputs.forEach(x => {
       rowData[x.name] = x.value;
     });
     rowData.category = definedCategories[rowData.category - 1];
-    _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].push(rowData);
+
+    if (rowForm.getAttribute("data-id") === "0") {
+      rowData.id = (Math.random() + 1).toString(36).substring(4);
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].push(rowData);
+    } else {
+      console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === rowForm.getAttribute("data-id")));
+      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][index], {}, rowData);
+    }
+
     generateContent();
     generateSummary();
     rowForm.reset();
@@ -10190,7 +10229,7 @@ __webpack_require__.r(__webpack_exports__);
 const tasksList = [{
   id: "rmsd7skah",
   name: "Pet the cat",
-  date: "10/01/2021",
+  date: "2021-10-01",
   category: "Random Thought",
   content: "Find a cat, catch it, pet it",
   dates: "",
@@ -10198,7 +10237,7 @@ const tasksList = [{
 }, {
   id: "dn9jrtz7",
   name: "Feed ducks",
-  date: "10/05/2021",
+  date: "2021-09-01",
   category: "Random Thought",
   content: "Take some breadcrumbs, find ducks, feed them",
   dates: "",
@@ -10206,7 +10245,7 @@ const tasksList = [{
 }, {
   id: "1caw9hq9i",
   name: "Pick raspberry",
-  date: "10/08/2021",
+  date: "2021-08-01",
   category: "Task",
   content: "Go to the garden, and pick it",
   dates: "",
@@ -10214,7 +10253,7 @@ const tasksList = [{
 }, {
   id: "5fhvgj61f",
   name: "Build the house",
-  date: "10/09/2021",
+  date: "2021-07-01",
   category: "Task",
   content: "Call to the builder teem in 10/10/2021",
   dates: "10/10/2021",
@@ -10222,7 +10261,7 @@ const tasksList = [{
 }, {
   id: "mxof3uoni",
   name: "Visit a doctor",
-  date: "06/08/2021",
+  date: "2021-08-20",
   category: "Task",
   content: "Visit a doctor. The dog was powerfull.",
   dates: "",
@@ -10230,7 +10269,7 @@ const tasksList = [{
 }, {
   id: "699161at",
   name: "Kick naughty dog",
-  date: "05/08/2021",
+  date: "2021-08-19",
   category: "Random Thought",
   content: "Find and kick it",
   dates: "",
