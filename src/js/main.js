@@ -8,7 +8,7 @@ const contentTableCurent = document.querySelector(".note-table-main");
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
 const addRowRow = document.querySelector(".table-add-row");
-const sumTable = document.querySelector(".summary-table");
+const sumTable = document.querySelector(".summary-table tbody");
 
 
 switchArchive.addEventListener("click", (e) => {
@@ -63,16 +63,13 @@ const generateContent = () => {
     tasksList.map( row  => !row.status && contentTableArchive.append(fillRowUp(row)));
 }
 
-try{
+
     contentTableArchive.addEventListener("click", (e) => {
         console.log(e.target.classList.contains("icon-unarchive"));
         console.log(e.target.closest("tr").getAttribute("data-id"));
         console.log(tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
         generateContent();
     })
-} catch {
-
-}
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-archive") && (tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
@@ -89,3 +86,27 @@ generateContent();
 
 let r = (Math.random() + 1).toString(36).substring(4);
 console.log("random", r);
+
+const generateSummary = () => {
+    const summaryData = [...new Set(tasksList.map(row => row.category))].map(unique => {
+        const uniqueData = {
+            name: unique,
+            act: tasksList.reduce((acc, val) => {return val.category === unique && val.status === 1 ? ++acc : acc},0),
+            arc: tasksList.reduce((acc, val) => {return val.category === unique && val.status === 0 ? ++acc : acc},0),
+        }
+        return uniqueData;
+    })
+    const fillRow = (item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+                        <th scope="row">${item.name}</th>
+                        <td>${item.act}</td>
+                        <td>${item.arc}</td>
+                        `
+        return row;
+    }
+    sumTable.innerHTML = "";
+    summaryData.map(row => sumTable.append(fillRow(row)));
+}
+
+generateSummary()
