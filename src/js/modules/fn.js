@@ -1,6 +1,6 @@
 "use strict"
 
-const toogleElemClassAsArr = (arrElem, arrCssClass) => {
+const togleElemClassAsArr = (arrElem, arrCssClass) => {
     arrElem.forEach((x,y) => x.classList.toggle(arrCssClass[y]));
 } 
 
@@ -16,7 +16,7 @@ const getRegExpValue = (field, event) => {
 }
 
 export {
-    toogleElemClassAsArr,
+    togleElemClassAsArr,
     getRegExpValue
 }
 

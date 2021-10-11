@@ -10037,11 +10037,10 @@ const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
-const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
-const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
-const definedCategories = ["Task", "Random Thought", "Idea"];
 switchArchive.addEventListener("click", e => {
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["toogleElemClassAsArr"])(togleElem, toggleClass);
+  const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
+  const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["togleElemClassAsArr"])(togleElem, toggleClass);
 });
 btnClose.addEventListener("click", () => {
   rowForm.setAttribute("data-id", "0");
@@ -10091,24 +10090,24 @@ const generateContent = () => {
 
   contentTableCurent.innerHTML = "";
   contentTableArchive.innerHTML = "";
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
 };
 
 contentTableArchive.addEventListener("click", e => {
   console.log(e.target.classList.contains("icon-unarchive"));
   console.log(e.target.closest("tr").getAttribute("data-id"));
-  console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
+  console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
   generateContent();
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
+  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
   generateContent();
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
+  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
   generateContent();
   generateSummary();
 });
@@ -10121,11 +10120,11 @@ contentTableCurent.addEventListener("click", e => {
       category,
       content,
       dates
-    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
+    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
     addRowBtn.click();
     modalInputs[0].value = name;
     modalInputs[1].value = date;
-    modalInputs[2].value = definedCategories.indexOf(category) + 1;
+    modalInputs[2].value = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["definedCategories"].indexOf(category) + 1;
     modalInputs[3].value = content;
     modalInputs[4].value = dates;
     rowForm.setAttribute("data-id", id);
@@ -10137,13 +10136,13 @@ contentTableCurent.addEventListener("click", e => {
 generateContent();
 
 const generateSummary = () => {
-  const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => row.category))].map(unique => {
+  const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => row.category))].map(unique => {
     const uniqueData = {
       name: unique,
-      act: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].reduce((acc, val) => {
+      act: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].reduce((acc, val) => {
         return val.category === unique && val.status === 1 ? ++acc : acc;
       }, 0),
-      arc: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].reduce((acc, val) => {
+      arc: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].reduce((acc, val) => {
         return val.category === unique && val.status === 0 ? ++acc : acc;
       }, 0)
     };
@@ -10172,14 +10171,14 @@ btnSave.addEventListener("click", () => {
     modalInputs.forEach(x => {
       rowData[x.name] = x.value;
     });
-    rowData.category = definedCategories[rowData.category - 1];
+    rowData.category = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["definedCategories"][rowData.category - 1];
 
     if (rowForm.getAttribute("data-id") === "0") {
       rowData.id = (Math.random() + 1).toString(36).substring(4);
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].push(rowData);
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].push(rowData);
     } else {
-      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][index], {}, rowData);
+      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index], {}, rowData);
     }
 
     generateContent();
@@ -10201,16 +10200,16 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: toogleElemClassAsArr, getRegExpValue */
+/*! exports provided: togleElemClassAsArr, getRegExpValue */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toogleElemClassAsArr", function() { return toogleElemClassAsArr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "togleElemClassAsArr", function() { return togleElemClassAsArr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegExpValue", function() { return getRegExpValue; });
 
 
-const toogleElemClassAsArr = (arrElem, arrCssClass) => {
+const togleElemClassAsArr = (arrElem, arrCssClass) => {
   arrElem.forEach((x, y) => x.classList.toggle(arrCssClass[y]));
 };
 
@@ -10233,13 +10232,16 @@ const getRegExpValue = (field, event) => {
 /*!***************************************!*\
   !*** ./src/js/modules/starterDate.js ***!
   \***************************************/
-/*! exports provided: default */
+/*! exports provided: tasksList, definedCategories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tasksList", function() { return tasksList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "definedCategories", function() { return definedCategories; });
 
 
+const definedCategories = ["Task", "Random Thought", "Idea"];
 const tasksList = [{
   id: "rmsd7skah",
   name: "Pet the cat",
@@ -10289,7 +10291,7 @@ const tasksList = [{
   dates: "",
   status: 0
 }];
-/* harmony default export */ __webpack_exports__["default"] = (tasksList);
+
 
 /***/ })
 

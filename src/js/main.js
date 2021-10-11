@@ -1,7 +1,7 @@
 "use strict";
 import 'bootstrap';
-import { getRegExpValue, toogleElemClassAsArr } from './modules/fn';
-import tasksList from './modules/starterDate';
+import { getRegExpValue, togleElemClassAsArr } from './modules/fn';
+import {tasksList, definedCategories } from './modules/starterDate';
 
 
 const contentTableArchive = document.querySelector(".note-table-archive");
@@ -16,24 +16,22 @@ const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
 
 
-const togleElem = [
-    contentTableArchive,
-    contentTableCurent,
-    addRowBtn,
-    switchArchive
-];
-
-const toggleClass = [
-    "tbody-hidden",
-    "tbody-hidden",
-    "unvisible",
-    "active",
-]
-
-const definedCategories = ["Task", "Random Thought", "Idea"]
-
 switchArchive.addEventListener("click", (e) => {
-    toogleElemClassAsArr(togleElem, toggleClass);
+    const togleElem = [
+        contentTableArchive,
+        contentTableCurent,
+        addRowBtn,
+        switchArchive
+    ];
+    
+    const toggleClass = [
+        "tbody-hidden",
+        "tbody-hidden",
+        "unvisible",
+        "active",
+    ];
+
+    togleElemClassAsArr(togleElem, toggleClass);
 });
 
 btnClose.addEventListener("click", () => {

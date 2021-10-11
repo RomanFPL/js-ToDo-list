@@ -1,5 +1,11 @@
 "use strict"
 
+const definedCategories = [
+    "Task", 
+    "Random Thought", 
+    "Idea"
+];
+
 const tasksList = [
     {
         id: "rmsd7skah",
@@ -57,4 +63,8 @@ const tasksList = [
     },
 ];
 
-export default tasksList;
+export {
+    tasksList,
+    definedCategories
+}
+
