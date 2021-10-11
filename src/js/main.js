@@ -1,6 +1,6 @@
 "use strict";
 import 'bootstrap';
-import { toogleElemClassAsArr } from './modules/fn';
+import { getRegExpValue, toogleElemClassAsArr } from './modules/fn';
 import tasksList from './modules/starterDate';
 
 
@@ -181,12 +181,5 @@ btnSave.addEventListener("click", () => {
 })
 
 modalInputs[3].addEventListener("input", (e) => {
-    const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/gm;
-    modalInputs[4].value = e.target.value.split(" ").reduce((acc, word) => {
-        if(word.match(regex) !== null){
-            acc.push(word.match(regex));
-        }
-        return acc;
-
-    }, []).join(", ")
-})
+    getRegExpValue(modalInputs[4], e)
+});

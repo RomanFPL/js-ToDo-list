@@ -10192,14 +10192,7 @@ btnSave.addEventListener("click", () => {
   }
 });
 modalInputs[3].addEventListener("input", e => {
-  const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/gm;
-  modalInputs[4].value = e.target.value.split(" ").reduce((acc, word) => {
-    if (word.match(regex) !== null) {
-      acc.push(word.match(regex));
-    }
-
-    return acc;
-  }, []).join(", ");
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["getRegExpValue"])(modalInputs[4], e);
 });
 
 /***/ }),
@@ -10208,16 +10201,28 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: toogleElemClassAsArr */
+/*! exports provided: toogleElemClassAsArr, getRegExpValue */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toogleElemClassAsArr", function() { return toogleElemClassAsArr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegExpValue", function() { return getRegExpValue; });
 
 
 const toogleElemClassAsArr = (arrElem, arrCssClass) => {
   arrElem.forEach((x, y) => x.classList.toggle(arrCssClass[y]));
+};
+
+const getRegExpValue = (field, event) => {
+  const regex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/gm;
+  field.value = event.target.value.split(" ").reduce((acc, word) => {
+    if (word.match(regex) !== null) {
+      acc.push(word.match(regex));
+    }
+
+    return acc;
+  }, []).join(", ");
 };
 
 
