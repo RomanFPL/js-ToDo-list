@@ -53,10 +53,37 @@ const fillRowUp = (item) => {
     return row;
 }
 
+const generateSummaryTable = (summaryTable, valueList) => {
+    const fillRow = (item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+                        <th scope="row">${item.name}</th>
+                        <td>${item.act}</td>
+                        <td>${item.arc}</td>
+                        `
+        return row;
+    }
+    summaryTable.innerHTML = "";
+    convertToSummaryData(valueList).map(row => summaryTable.append(fillRow(row)));
+}
+
+const convertToSummaryData = (valueList) => {
+    return [...new Set(valueList.map(row => row.category))]
+    .map(unique => {
+        const uniqueData = {
+            name: unique,
+            act: valueList.reduce((acc, val) => {return val.category === unique && val.status === 1 ? ++acc : acc},0),
+            arc: valueList.reduce((acc, val) => {return val.category === unique && val.status === 0 ? ++acc : acc},0),
+        }
+        return uniqueData;
+    })
+}
+
 
 export {
     togleElemClassAsArr,
     getRegExpValue,
-    generateContent
+    generateContent,
+    generateSummaryTable
 }
 

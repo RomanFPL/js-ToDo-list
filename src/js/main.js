@@ -1,6 +1,6 @@
 "use strict";
 import 'bootstrap';
-import { getRegExpValue, togleElemClassAsArr, generateContent } from './modules/fn';
+import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable } from './modules/fn';
 import {tasksList, definedCategories } from './modules/starterDate';
 
 
@@ -17,6 +17,7 @@ const xClose = document.querySelector(".x-close");
 
 generateContent(contentTableCurent, tasksList, 1);
 generateContent(contentTableArchive, tasksList, 0);
+generateSummaryTable(sumTable, tasksList);
 
 
 switchArchive.addEventListener("click", (e) => {
@@ -57,21 +58,21 @@ contentTableArchive.addEventListener("click", (e) => {
     tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
     generateContent(contentTableCurent, tasksList, 1);
     generateContent(contentTableArchive, tasksList, 0);
-    generateSummary();
+    generateSummaryTable(sumTable, tasksList);
 })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-archive") && (tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
     generateContent(contentTableCurent, tasksList, 1);
     generateContent(contentTableArchive, tasksList, 0);
-    generateSummary();
+    generateSummaryTable(sumTable, tasksList);
 })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-delete") && (tasksList.splice(tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")),1));
     generateContent(contentTableCurent, tasksList, 1);
     generateContent(contentTableArchive, tasksList, 0);
-    generateSummary();
+    generateSummaryTable(sumTable, tasksList);
 })
 
 contentTableCurent.addEventListener("click", (e) => {
@@ -87,32 +88,8 @@ contentTableCurent.addEventListener("click", (e) => {
     }
     generateContent(contentTableCurent, tasksList, 1);
     generateContent(contentTableArchive, tasksList, 0);
-    generateSummary();
+    generateSummaryTable(sumTable, tasksList);
 })
-
-const generateSummary = () => {
-    const summaryData = [...new Set(tasksList.map(row => row.category))].map(unique => {
-        const uniqueData = {
-            name: unique,
-            act: tasksList.reduce((acc, val) => {return val.category === unique && val.status === 1 ? ++acc : acc},0),
-            arc: tasksList.reduce((acc, val) => {return val.category === unique && val.status === 0 ? ++acc : acc},0),
-        }
-        return uniqueData;
-    })
-    const fillRow = (item) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-                        <th scope="row">${item.name}</th>
-                        <td>${item.act}</td>
-                        <td>${item.arc}</td>
-                        `
-        return row;
-    }
-    sumTable.innerHTML = "";
-    summaryData.map(row => sumTable.append(fillRow(row)));
-}
-
-generateSummary()
 
 btnSave.addEventListener("click", () => {
     if(modalInputs[0].value && modalInputs[2].value && modalInputs[3].value){
@@ -130,9 +107,9 @@ btnSave.addEventListener("click", () => {
                 tasksList[index] = {...tasksList[index],...rowData}
         }
 
-        generateContent(contentTableArchive, tasksList, 1);
-        generateContent(contentTableCurent, tasksList, 0);
-        generateSummary();
+        generateContent(contentTableCurent, tasksList, 1);
+        generateContent(contentTableArchive, tasksList, 0);
+        generateSummaryTable(sumTable, tasksList);
         rowForm.setAttribute("data-id", "0");
         rowForm.reset();
         btnClose.click();

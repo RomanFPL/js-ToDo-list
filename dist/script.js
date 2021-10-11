@@ -10009,13 +10009,9 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
-/* harmony import */ var _modules_fn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/fn */ "./src/js/modules/fn.js");
-/* harmony import */ var _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/starterDate */ "./src/js/modules/starterDate.js");
-
-
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+/* harmony import */ var _modules_fn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/fn */ "./src/js/modules/fn.js");
+/* harmony import */ var _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/starterDate */ "./src/js/modules/starterDate.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -10037,12 +10033,13 @@ const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
-Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
+Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
 switchArchive.addEventListener("click", e => {
   const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
   const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["togleElemClassAsArr"])(togleElem, toggleClass);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["togleElemClassAsArr"])(togleElem, toggleClass);
 });
 btnClose.addEventListener("click", () => {
   rowForm.setAttribute("data-id", "0");
@@ -10057,22 +10054,22 @@ addRowBtn.addEventListener("click", () => {
   modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
 });
 contentTableArchive.addEventListener("click", e => {
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
-  generateSummary();
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
-  generateSummary();
+  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
-  generateSummary();
+  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
 });
 contentTableCurent.addEventListener("click", e => {
   if (e.target.classList.contains("icon-edit")) {
@@ -10083,50 +10080,20 @@ contentTableCurent.addEventListener("click", e => {
       category,
       content,
       dates
-    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
+    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
     addRowBtn.click();
     modalInputs[0].value = name;
     modalInputs[1].value = date;
-    modalInputs[2].value = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["definedCategories"].indexOf(category) + 1;
+    modalInputs[2].value = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"].indexOf(category) + 1;
     modalInputs[3].value = content;
     modalInputs[4].value = dates;
     rowForm.setAttribute("data-id", id);
   }
 
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
-  generateSummary();
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
 });
-
-const generateSummary = () => {
-  const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => row.category))].map(unique => {
-    const uniqueData = {
-      name: unique,
-      act: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].reduce((acc, val) => {
-        return val.category === unique && val.status === 1 ? ++acc : acc;
-      }, 0),
-      arc: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].reduce((acc, val) => {
-        return val.category === unique && val.status === 0 ? ++acc : acc;
-      }, 0)
-    };
-    return uniqueData;
-  });
-
-  const fillRow = item => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-                        <th scope="row">${item.name}</th>
-                        <td>${item.act}</td>
-                        <td>${item.arc}</td>
-                        `;
-    return row;
-  };
-
-  sumTable.innerHTML = "";
-  summaryData.map(row => sumTable.append(fillRow(row)));
-};
-
-generateSummary();
 btnSave.addEventListener("click", () => {
   if (modalInputs[0].value && modalInputs[2].value && modalInputs[3].value) {
     const rowData = {};
@@ -10134,19 +10101,19 @@ btnSave.addEventListener("click", () => {
     modalInputs.forEach(x => {
       rowData[x.name] = x.value;
     });
-    rowData.category = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["definedCategories"][rowData.category - 1];
+    rowData.category = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"][rowData.category - 1];
 
     if (rowForm.getAttribute("data-id") === "0") {
       rowData.id = (Math.random() + 1).toString(36).substring(4);
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].push(rowData);
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].push(rowData);
     } else {
-      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
-      _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index], {}, rowData);
+      const index = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === rowForm.getAttribute("data-id"));
+      _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index], {}, rowData);
     }
 
-    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
-    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
-    generateSummary();
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
     rowForm.setAttribute("data-id", "0");
     rowForm.reset();
     btnClose.click();
@@ -10155,7 +10122,7 @@ btnSave.addEventListener("click", () => {
   }
 });
 modalInputs[3].addEventListener("input", e => {
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["getRegExpValue"])(modalInputs[4], e);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["getRegExpValue"])(modalInputs[4], e);
 });
 
 /***/ }),
@@ -10164,7 +10131,7 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent */
+/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10172,6 +10139,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "togleElemClassAsArr", function() { return togleElemClassAsArr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegExpValue", function() { return getRegExpValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateContent", function() { return generateContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSummaryTable", function() { return generateSummaryTable; });
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
+
+
 
 
 const togleElemClassAsArr = (arrElem, arrCssClass) => {
@@ -10224,6 +10196,36 @@ const fillRowUp = item => {
         </td>
     `;
   return row;
+};
+
+const generateSummaryTable = (summaryTable, valueList) => {
+  const fillRow = item => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+                        <th scope="row">${item.name}</th>
+                        <td>${item.act}</td>
+                        <td>${item.arc}</td>
+                        `;
+    return row;
+  };
+
+  summaryTable.innerHTML = "";
+  convertToSummaryData(valueList).map(row => summaryTable.append(fillRow(row)));
+};
+
+const convertToSummaryData = valueList => {
+  return [...new Set(valueList.map(row => row.category))].map(unique => {
+    const uniqueData = {
+      name: unique,
+      act: valueList.reduce((acc, val) => {
+        return val.category === unique && val.status === 1 ? ++acc : acc;
+      }, 0),
+      arc: valueList.reduce((acc, val) => {
+        return val.category === unique && val.status === 0 ? ++acc : acc;
+      }, 0)
+    };
+    return uniqueData;
+  });
 };
 
 
