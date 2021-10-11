@@ -19,10 +19,43 @@ switchArchive.addEventListener("click", (e) => {
     console.log("### tbales")
 });
 
-addRowBtn.addEventListener("click", () => {
-    addRowRow.classList.toggle("active");
-    addRowBtn.innerText = addRowRow.classList.contains("active") ? "Cancel" : "Add a row";
-})
+// addRowBtn.addEventListener("click", () => {
+//     addRowRow.classList.toggle("active");
+//     addRowBtn.innerText = addRowRow.classList.contains("active") ? "Cancel" : "Add a row";
+// })
+
+const generateAddRow = () => {
+    const addRow = document.createElement("tr");
+    addRow.classList.add("add-row-form");
+    addRow.innerHTML = `
+                        <form action="#">
+                        <th scope="row">
+                        <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="false">
+                        </th>
+                        <td>
+                        <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                        </td>
+                        <td>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open category</option>
+                            <option value="1">Task</option>
+                            <option value="2">Random Thought</option>
+                            <option value="3">Idea</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Task explanation" aria-label="Username" aria-describedby="basic-addon1">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Mentioned dates" aria-label="" aria-describedby="basic-addon1" disabled>
+                        </td>
+                        <td>
+                        <button type="button" class="btn btn-success">Save</button>
+                        </td>
+                    </form>
+                        `
+    return addRow
+}
 
 const generateContent = () => {
     const fillRowUp = (item) => {
@@ -69,16 +102,19 @@ const generateContent = () => {
         console.log(e.target.closest("tr").getAttribute("data-id"));
         console.log(tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
         generateContent();
+        generateSummary();
     })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-archive") && (tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
     generateContent();
+    generateSummary();
 })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-delete") && (tasksList.splice(tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")),1));
     generateContent();
+    generateSummary();
 })
 
 

@@ -26,7 +26,59 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <section class="main container">
+    <section class="main container">  
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog container modal-row-display">
+                <form action="#">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add row</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="note-table table table-light table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="responsive-row-width">Name</th>
+                                    <th scope="col" class="responsive-row-width">Created</th>
+                                    <th scope="col" class="responsive-row-width">Category</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col" class="responsive-row-width">Dates</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="false">
+                                    </th>
+                                    <td>
+                                        <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open category</option>
+                                            <option value="1">Task</option>
+                                            <option value="2">Random Thought</option>
+                                            <option value="3">Idea</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Task explanation" aria-label="Username" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Mentioned dates" aria-label="" aria-describedby="basic-addon1" disabled>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button btn-form-close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button btn-form-save" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="wrap-table mb-5">
 
             <div class="name-table m-2">
@@ -52,41 +104,14 @@
                   </tr>
                 </thead>
                 <tbody class="note-table-main">
-                    <tr class="table-add-row">
-                      <form action="#">
-                          <th scope="row">
-                            <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="false">
-                          </th>
-                          <td>
-                            <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" disabled>
-                          </td>
-                          <td>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open category</option>
-                                <option value="1">Task</option>
-                                <option value="2">Random Thought</option>
-                                <option value="3">Idea</option>
-                              </select>
-                          </td>
-                          <td>
-                              <input type="text" class="form-control" placeholder="Task explanation" aria-label="Username" aria-describedby="basic-addon1">
-                            </td>
-                            <td>
-                              <input type="text" class="form-control" placeholder="Mentioned dates" aria-label="" aria-describedby="basic-addon1" disabled>
-                            </td>
-                          <td>
-                            <button type="button" class="btn btn-success">Save</button>
-                          </td>
-                      </form>
-                </tr>
-                <!-- Main content -->
-            </tbody>
-            <tbody class="note-table-archive tbody-hidden">
-                <!-- Archive content -->
-            </tbody>
+                        <!-- Main content -->
+                </tbody>
+                <tbody class="note-table-archive tbody-hidden">
+                    <!-- Archive content -->
+                </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                <button type="button" class="add-btn btn btn-secondary">Add a row</button>
+                <button type="button" class="add-btn btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add a row</button>
             </div>
             </div>
             <div class="wrap-table">
