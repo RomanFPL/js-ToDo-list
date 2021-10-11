@@ -1,24 +1,29 @@
 "use strict";
 import 'bootstrap';
-import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable, gatCurenDate } from './modules/fn';
+import { getRegExpValue, togleElemClassAsArr, generateContent, generateSummaryTable, gatCurenDate, editRowById } from './modules/fn';
 import {tasksList, definedCategories } from './modules/starterDate';
 
 
 const contentTableArchive = document.querySelector(".note-table-archive");
 const contentTableCurent = document.querySelector(".note-table-main");
+const sumTable = document.querySelector(".summary-table tbody");
+
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
-const sumTable = document.querySelector(".summary-table tbody");
+
 const rowForm = document.querySelector(".modal-form")
 const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
 
-generateContent(contentTableCurent, tasksList, 1);
-generateContent(contentTableArchive, tasksList, 0);
-generateSummaryTable(sumTable, tasksList);
+const updateTables = () => {
+    generateContent(contentTableCurent, tasksList, 1);
+    generateContent(contentTableArchive, tasksList, 0);
+    generateSummaryTable(sumTable, tasksList);
+}
 
+updateTables();
 
 switchArchive.addEventListener("click", (e) => {
     const togleElem = [
@@ -54,39 +59,22 @@ addRowBtn.addEventListener("click", () => {
 
 contentTableArchive.addEventListener("click", (e) => {
     tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
-    generateContent(contentTableCurent, tasksList, 1);
-    generateContent(contentTableArchive, tasksList, 0);
-    generateSummaryTable(sumTable, tasksList);
+    updateTables();
 })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-archive") && (tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
-    generateContent(contentTableCurent, tasksList, 1);
-    generateContent(contentTableArchive, tasksList, 0);
-    generateSummaryTable(sumTable, tasksList);
+    updateTables();
 })
 
 contentTableCurent.addEventListener("click", (e) => {
     e.target.classList.contains("icon-delete") && (tasksList.splice(tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")),1));
-    generateContent(contentTableCurent, tasksList, 1);
-    generateContent(contentTableArchive, tasksList, 0);
-    generateSummaryTable(sumTable, tasksList);
+    updateTables();
 })
 
 contentTableCurent.addEventListener("click", (e) => {
-    if(e.target.classList.contains("icon-edit")){
-        const {id, name, date, category, content, dates} = tasksList[tasksList.findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
-        addRowBtn.click();
-        modalInputs[0].value = name;
-        modalInputs[1].value = date;
-        modalInputs[2].value = definedCategories.indexOf(category)+1;
-        modalInputs[3].value = content;
-        modalInputs[4].value = dates;
-        rowForm.setAttribute("data-id",id)
-    }
-    generateContent(contentTableCurent, tasksList, 1);
-    generateContent(contentTableArchive, tasksList, 0);
-    generateSummaryTable(sumTable, tasksList);
+    e.target.classList.contains("icon-edit") && (editRowById(e, tasksList, modalInputs, rowForm, addRowBtn));
+    updateTables();
 })
 
 btnSave.addEventListener("click", () => {
@@ -105,9 +93,7 @@ btnSave.addEventListener("click", () => {
                 tasksList[index] = {...tasksList[index],...rowData}
         }
 
-        generateContent(contentTableCurent, tasksList, 1);
-        generateContent(contentTableArchive, tasksList, 0);
-        generateSummaryTable(sumTable, tasksList);
+        updateTables();
         rowForm.setAttribute("data-id", "0");
         rowForm.reset();
         btnClose.click();

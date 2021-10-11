@@ -26,6 +26,17 @@ const generateContent = (tableBody, vlueList, status) => {
     vlueList.map( row  => row.status === status && tableBody.append(fillRowUp(row)));
 }
 
+const editRowById = (event, valueList, modalInputs, rowForm, initOpenBtn) => {
+    const {id, name, date, category, content, dates} = valueList[valueList.findIndex(item => item.id === event.target.closest("tr").getAttribute("data-id"))];
+    initOpenBtn.click();
+    modalInputs[0].value = name;
+    modalInputs[1].value = date;
+    modalInputs[2].value = definedCategories.indexOf(category)+1;
+    modalInputs[3].value = content;
+    modalInputs[4].value = dates;
+    rowForm.setAttribute("data-id",id)
+}
+
 const fillRowUp = (item) => {
     const row = document.createElement("tr");
     row.setAttribute("data-id", item.id)
@@ -91,6 +102,7 @@ export {
     getRegExpValue,
     generateContent,
     generateSummaryTable,
-    gatCurenDate
+    gatCurenDate,
+    editRowById
 }
 

@@ -10025,17 +10025,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const contentTableArchive = document.querySelector(".note-table-archive");
 const contentTableCurent = document.querySelector(".note-table-main");
+const sumTable = document.querySelector(".summary-table tbody");
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
-const sumTable = document.querySelector(".summary-table tbody");
 const rowForm = document.querySelector(".modal-form");
 const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
-Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+
+const updateTables = () => {
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+};
+
+updateTables();
 switchArchive.addEventListener("click", e => {
   const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
   const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
@@ -10054,44 +10059,19 @@ addRowBtn.addEventListener("click", () => {
 });
 contentTableArchive.addEventListener("click", e => {
   _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+  updateTables();
 });
 contentTableCurent.addEventListener("click", e => {
   e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+  updateTables();
 });
 contentTableCurent.addEventListener("click", e => {
   e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+  updateTables();
 });
 contentTableCurent.addEventListener("click", e => {
-  if (e.target.classList.contains("icon-edit")) {
-    const {
-      id,
-      name,
-      date,
-      category,
-      content,
-      dates
-    } = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))];
-    addRowBtn.click();
-    modalInputs[0].value = name;
-    modalInputs[1].value = date;
-    modalInputs[2].value = _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["definedCategories"].indexOf(category) + 1;
-    modalInputs[3].value = content;
-    modalInputs[4].value = dates;
-    rowForm.setAttribute("data-id", id);
-  }
-
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+  e.target.classList.contains("icon-edit") && Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["editRowById"])(e, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], modalInputs, rowForm, addRowBtn);
+  updateTables();
 });
 btnSave.addEventListener("click", () => {
   if (modalInputs[0].value && modalInputs[2].value && modalInputs[3].value) {
@@ -10110,9 +10090,7 @@ btnSave.addEventListener("click", () => {
       _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"][index], {}, rowData);
     }
 
-    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 1);
-    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"], 0);
-    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_1__["generateSummaryTable"])(sumTable, _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["tasksList"]);
+    updateTables();
     rowForm.setAttribute("data-id", "0");
     rowForm.reset();
     btnClose.click();
@@ -10130,7 +10108,7 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable, gatCurenDate */
+/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent, generateSummaryTable, gatCurenDate, editRowById */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10140,6 +10118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateContent", function() { return generateContent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateSummaryTable", function() { return generateSummaryTable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gatCurenDate", function() { return gatCurenDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editRowById", function() { return editRowById; });
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -10170,6 +10149,24 @@ const getRegExpValue = (field, event) => {
 const generateContent = (tableBody, vlueList, status) => {
   tableBody.innerHTML = "";
   vlueList.map(row => row.status === status && tableBody.append(fillRowUp(row)));
+};
+
+const editRowById = (event, valueList, modalInputs, rowForm, initOpenBtn) => {
+  const {
+    id,
+    name,
+    date,
+    category,
+    content,
+    dates
+  } = valueList[valueList.findIndex(item => item.id === event.target.closest("tr").getAttribute("data-id"))];
+  initOpenBtn.click();
+  modalInputs[0].value = name;
+  modalInputs[1].value = date;
+  modalInputs[2].value = definedCategories.indexOf(category) + 1;
+  modalInputs[3].value = content;
+  modalInputs[4].value = dates;
+  rowForm.setAttribute("data-id", id);
 };
 
 const fillRowUp = item => {
