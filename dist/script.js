@@ -10012,7 +10012,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
-/* harmony import */ var _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/starterDate */ "./src/js/modules/starterDate.js");
+/* harmony import */ var _modules_fn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/fn */ "./src/js/modules/fn.js");
+/* harmony import */ var _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/starterDate */ "./src/js/modules/starterDate.js");
+
 
 
 
@@ -10023,12 +10025,11 @@ const contentTableCurent = document.querySelector(".note-table-main");
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
 const sumTable = document.querySelector(".summary-table tbody");
+const modalAdd = document.querySelector('.modal-add');
+const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
+const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
 switchArchive.addEventListener("click", e => {
-  contentTableArchive.classList.toggle('tbody-hidden');
-  contentTableCurent.classList.toggle('tbody-hidden');
-  switchArchive.classList.toggle('active');
-  addRowBtn.classList.toggle("unvisible");
-  console.log("### tbales");
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["toogleElemClassAsArr"])(togleElem, toggleClass);
 });
 
 const generateContent = () => {
@@ -10066,24 +10067,24 @@ const generateContent = () => {
 
   contentTableCurent.innerHTML = "";
   contentTableArchive.innerHTML = "";
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
 };
 
 contentTableArchive.addEventListener("click", e => {
   console.log(e.target.classList.contains("icon-unarchive"));
   console.log(e.target.closest("tr").getAttribute("data-id"));
-  console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
+  console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
   generateContent();
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
+  e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
   generateContent();
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
-  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
+  e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
   generateContent();
   generateSummary();
 });
@@ -10092,13 +10093,13 @@ let r = (Math.random() + 1).toString(36).substring(4);
 console.log("random", r);
 
 const generateSummary = () => {
-  const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].map(row => row.category))].map(unique => {
+  const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].map(row => row.category))].map(unique => {
     const uniqueData = {
       name: unique,
-      act: _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].reduce((acc, val) => {
+      act: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].reduce((acc, val) => {
         return val.category === unique && val.status === 1 ? ++acc : acc;
       }, 0),
-      arc: _modules_starterDate__WEBPACK_IMPORTED_MODULE_2__["default"].reduce((acc, val) => {
+      arc: _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["default"].reduce((acc, val) => {
         return val.category === unique && val.status === 0 ? ++acc : acc;
       }, 0)
     };
@@ -10120,6 +10121,26 @@ const generateSummary = () => {
 };
 
 generateSummary();
+
+/***/ }),
+
+/***/ "./src/js/modules/fn.js":
+/*!******************************!*\
+  !*** ./src/js/modules/fn.js ***!
+  \******************************/
+/*! exports provided: toogleElemClassAsArr */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toogleElemClassAsArr", function() { return toogleElemClassAsArr; });
+
+
+const toogleElemClassAsArr = (arrElem, arrCssClass) => {
+  arrElem.forEach((x, y) => x.classList.toggle(arrCssClass[y]));
+};
+
+
 
 /***/ }),
 
