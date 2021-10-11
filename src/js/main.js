@@ -13,6 +13,7 @@ const rowForm = document.querySelector(".modal-form")
 const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
+const xClose = document.querySelector(".x-close");
 
 
 const togleElem = [
@@ -34,6 +35,17 @@ const definedCategories = ["Task", "Random Thought", "Idea"]
 switchArchive.addEventListener("click", (e) => {
     toogleElemClassAsArr(togleElem, toggleClass);
 });
+
+btnClose.addEventListener("click", () => {
+    rowForm.setAttribute("data-id", "0");
+    rowForm.reset();
+})
+
+xClose.addEventListener("click", () => {
+    rowForm.setAttribute("data-id", "0");
+    rowForm.reset();
+})
+
 
 addRowBtn.addEventListener("click", () => {
     const date = new Date();
@@ -153,14 +165,14 @@ btnSave.addEventListener("click", () => {
             if(rowForm.getAttribute("data-id")==="0"){
                 rowData.id = (Math.random() + 1).toString(36).substring(4);
                 tasksList.push(rowData);
-        } else {
-            console.log(tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id")))
-            const index = tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id"))
-            tasksList[index] = {...tasksList[index],...rowData}
+            } else {
+                const index = tasksList.findIndex(item => item.id === rowForm.getAttribute("data-id"))
+                tasksList[index] = {...tasksList[index],...rowData}
         }
 
         generateContent();
         generateSummary();
+        rowForm.setAttribute("data-id", "0");
         rowForm.reset();
         btnClose.click();
     } else {
