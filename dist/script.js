@@ -10037,6 +10037,8 @@ const modalInputs = document.querySelectorAll('.form-row-value');
 const btnSave = document.querySelector(".btn-form-save");
 const btnClose = document.querySelector(".btn-form-close");
 const xClose = document.querySelector(".x-close");
+Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
 switchArchive.addEventListener("click", e => {
   const togleElem = [contentTableArchive, contentTableCurent, addRowBtn, switchArchive];
   const toggleClass = ["tbody-hidden", "tbody-hidden", "unvisible", "active"];
@@ -10054,61 +10056,22 @@ addRowBtn.addEventListener("click", () => {
   const date = new Date();
   modalInputs[1].value = `${date.getFullYear()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
 });
-
-const generateContent = () => {
-  const fillRowUp = item => {
-    const row = document.createElement("tr");
-    row.setAttribute("data-id", item.id);
-    row.innerHTML = `
-        <th scope="row">${item.name}</th>
-        <td>${item.date}</td>
-        <td>${item.category}</td>
-        <td>${item.content}</td>
-        <td>${item.dates}</td>
-        <td>
-            ${item.status ? `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-edit onIcon mx-1 bi bi-pencil-square" viewBox="0 0 16 16">
-                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-archive onIcon mx-1 bi bi-save green" viewBox="0 0 16 16">
-                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-delete onIcon mx-1 bi bi-trash red" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-            </svg>
-            ` : `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-unarchive bi bi-arrow-up-square onIcon mx-1 orange" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
-            </svg>
-            `}
-            </td>
-        `;
-    return row;
-  };
-
-  contentTableCurent.innerHTML = "";
-  contentTableArchive.innerHTML = "";
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => row.status && contentTableCurent.append(fillRowUp(row)));
-  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => !row.status && contentTableArchive.append(fillRowUp(row)));
-};
-
 contentTableArchive.addEventListener("click", e => {
-  console.log(e.target.classList.contains("icon-unarchive"));
-  console.log(e.target.closest("tr").getAttribute("data-id"));
-  console.log(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1);
-  generateContent();
+  _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 1;
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
   e.target.classList.contains("icon-archive") && (_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id"))].status = 0);
-  generateContent();
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
   e.target.classList.contains("icon-delete") && _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].splice(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].findIndex(item => item.id === e.target.closest("tr").getAttribute("data-id")), 1);
-  generateContent();
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
   generateSummary();
 });
 contentTableCurent.addEventListener("click", e => {
@@ -10130,10 +10093,10 @@ contentTableCurent.addEventListener("click", e => {
     rowForm.setAttribute("data-id", id);
   }
 
-  generateContent();
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+  Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
   generateSummary();
 });
-generateContent();
 
 const generateSummary = () => {
   const summaryData = [...new Set(_modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"].map(row => row.category))].map(unique => {
@@ -10181,7 +10144,8 @@ btnSave.addEventListener("click", () => {
       _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index] = _objectSpread({}, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"][index], {}, rowData);
     }
 
-    generateContent();
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableArchive, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 1);
+    Object(_modules_fn__WEBPACK_IMPORTED_MODULE_2__["generateContent"])(contentTableCurent, _modules_starterDate__WEBPACK_IMPORTED_MODULE_3__["tasksList"], 0);
     generateSummary();
     rowForm.setAttribute("data-id", "0");
     rowForm.reset();
@@ -10200,13 +10164,14 @@ modalInputs[3].addEventListener("input", e => {
 /*!******************************!*\
   !*** ./src/js/modules/fn.js ***!
   \******************************/
-/*! exports provided: togleElemClassAsArr, getRegExpValue */
+/*! exports provided: togleElemClassAsArr, getRegExpValue, generateContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "togleElemClassAsArr", function() { return togleElemClassAsArr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRegExpValue", function() { return getRegExpValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateContent", function() { return generateContent; });
 
 
 const togleElemClassAsArr = (arrElem, arrCssClass) => {
@@ -10222,6 +10187,43 @@ const getRegExpValue = (field, event) => {
 
     return acc;
   }, []).join(", ");
+};
+
+const generateContent = (tableBody, vlueList, status) => {
+  tableBody.innerHTML = "";
+  vlueList.map(row => row.status === status && tableBody.append(fillRowUp(row)));
+};
+
+const fillRowUp = item => {
+  const row = document.createElement("tr");
+  row.setAttribute("data-id", item.id);
+  row.innerHTML = `
+    <th scope="row">${item.name}</th>
+    <td>${item.date}</td>
+    <td>${item.category}</td>
+    <td>${item.content}</td>
+    <td>${item.dates}</td>
+    <td>
+        ${item.status ? `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-edit onIcon mx-1 bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-archive onIcon mx-1 bi bi-save green" viewBox="0 0 16 16">
+            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-delete onIcon mx-1 bi bi-trash red" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg>
+        ` : `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-unarchive bi bi-arrow-up-square onIcon mx-1 orange" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+        </svg>
+        `}
+        </td>
+    `;
+  return row;
 };
 
 
