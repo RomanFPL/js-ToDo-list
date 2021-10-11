@@ -10018,12 +10018,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const contentTable = document.querySelector(".note-table");
 const contentTableArchive = document.querySelector(".note-table-archive");
 const contentTableCurent = document.querySelector(".note-table-main");
 const switchArchive = document.querySelector(".toArchive");
 const addRowBtn = document.querySelector(".add-btn");
-const addRowRow = document.querySelector(".table-add-row");
 const sumTable = document.querySelector(".summary-table tbody");
 switchArchive.addEventListener("click", e => {
   contentTableArchive.classList.toggle('tbody-hidden');
@@ -10031,43 +10029,7 @@ switchArchive.addEventListener("click", e => {
   switchArchive.classList.toggle('active');
   addRowBtn.classList.toggle("unvisible");
   console.log("### tbales");
-}); // addRowBtn.addEventListener("click", () => {
-//     addRowRow.classList.toggle("active");
-//     addRowBtn.innerText = addRowRow.classList.contains("active") ? "Cancel" : "Add a row";
-// })
-
-const generateAddRow = () => {
-  const addRow = document.createElement("tr");
-  addRow.classList.add("add-row-form");
-  addRow.innerHTML = `
-                        <form action="#">
-                        <th scope="row">
-                        <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" autocomplete="false">
-                        </th>
-                        <td>
-                        <input type="date" class="form-control" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1" disabled>
-                        </td>
-                        <td>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open category</option>
-                            <option value="1">Task</option>
-                            <option value="2">Random Thought</option>
-                            <option value="3">Idea</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" placeholder="Task explanation" aria-label="Username" aria-describedby="basic-addon1">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" placeholder="Mentioned dates" aria-label="" aria-describedby="basic-addon1" disabled>
-                        </td>
-                        <td>
-                        <button type="button" class="btn btn-success">Save</button>
-                        </td>
-                    </form>
-                        `;
-  return addRow;
-};
+});
 
 const generateContent = () => {
   const fillRowUp = item => {
